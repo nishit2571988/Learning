@@ -1,0 +1,136 @@
+two types in pandas
+1. dataframe
+2. series => one single record whether is a column or raw record (equivalent to list)
+
+type(df["Player"]) => series datatype
+
+type(df[["Player"]]) =? dataframe datatype
+
+
+import pandas as pd 
+
+df=pd.read_csv('basketball.csv')
+
+df.to_csv("basketballsep.csv",index=False) index not write to csv
+
+df.to_csv("basketballsep.csv",sep="@") default seperator is ","
+
+df.to_csv("basketballsep.csv",index=False,sep="@",columns=["Player","Pos"]) only two columns data write
+
+pd.read_csv('basketball.csv') header is not display
+
+pd.read_csv('taxonomy.csv' ,names=["adfgfadssaf" , 'b' , 'c' , 'd' , "fdsfsa" , "fsdf" ,"fdsfs"] ) Give column name
+
+pd.read_csv('basketball.csv',sep=',') read csv using seperator ","
+
+pd.read_csv('basketball.csv',sep='|') read csv using seperator "|"
+
+pd.read_csv('sample_test.csv',sep='|' , skiprows=[1,3])   skip 1st and 3rd row
+
+pd.read_csv("basketball.csv",na_values=["1","SG"])  return null value where "1" or "SG" string
+
+df.head()   top 5 record
+
+df.tail(10) last 10 record
+
+df.columns return column name
+
+df.keys()  return columna name
+
+df.dtypes return datatype of columns
+
+type(df.dtypes)  return series (series just like a list)
+
+df.dtypes=="object" return true if datatype is object else false against all column
+
+df.dtypes[df.dtypes=="object"] return all column having  datatype object
+
+df.dtypes[df.dtypes=="object"].index  return all column having  datatype object
+
+df[df.dtypes[df.dtypes=="object"].index] return all column data having column datatype object
+
+df.describe() return count mean std min 25% 50% 75% max recors return for all column
+
+df[["Name","Sex"]] return multiple column
+
+sorted(df["Name"]) return name column with sorting
+
+sorted(df["Name"],reverse=True) return name column with descending order
+
+df["newcol"]="test"  add new column
+
+df["newcol1"]=df["Age"]   age colum data dump to newcol1
+
+pd.Categorical(df["Cabin"]) retunr categorical records wth distict categories data
+
+df["Pclass"].unique() return unique data from pclass column
+
+df["Cabin"].isnull() retun true if null data else false
+
+df["Cabin"][df["Cabin"].isnull()==False] retuns only those record where not null vlaues
+
+ser = df["Cabin"][df["Cabin"].isnull()==False]  retun onlu not null record index
+
+df.iloc[ser.index] return records where cabin column is not null
+
+df.iloc[[1,2,3]] retun 1,2 and 3 row
+
+df["Fare"]==max(df["Fare"]) return max fare column
+df[df["Fare"]==max(df["Fare"])] retunr highest fare record
+
+df[df["Fare"]==max(df["Fare"])]['Name'] retunr person name with highest name
+
+df["new_col"]=df["PassengerId"]+df["Age"] added new column with sum of passengerid and age
+
+pd.read_excel("lusidbusiness.xlsx",sheet_name="Add your take on balances") read excel file with sheetname
+
+
+df4=pd.read_html("https://www.basketball-reference.com/players/i/ibakase01.html") read all tables from html page and return list
+example
+
+	df[0] = one table
+	df[1] = second table
+	df[2] = third table
+	df[3] = four table
+	
+df4[3].to_csv("players_data.csv") save data to csv format
+
+//json data
+
+s="""{
+"name" : "nishit",
+"phone_no" : "1245151515",
+"company" : ["ineuron","unilver","verizon","Deloitte","wipro"]
+}
+"""
+
+s1=json.loads(s)
+pd.DataFrame(s1) represent in data frame meand tabular structure
+pd.DataFrame(s1,columns=["company"])  only company column shows
+
+//json data from service or api
+import requests
+res=requests.get("https://api.github.com/repos/pandas-dev/pandas/issues")
+res.json()
+pd.DataFrame(js)
+pd.DataFrame(js,columns=["url","labels_url"])
+pd.DataFrame(js).to_csv("jsondata.csv")
+df=pd.DataFrame(js)
+df..to_csv("jsondata.csv")
+
+
+
+form_file =pd.read_csv("basketball.csv")
+form_file.to_pickle("my_pickle")  save file on binary format/byte code format (this is not readable data direct from file) serialize data 
+pd.read_pickle("my_pickle") read pickle file  using pandas library
+
+h5_data = pd.HDFStore("test.h5")  create .h5 file format file (this is not readable data direct from file)
+form_file =pd.read_csv("basketball.csv")
+h5_data['obj1']=form_file   save csv data to h5 file format serialize data
+h5_data['obj1'] view all data read all data using  pandas library
+h5_data.put("obj2",form_file,format='table')  put objj2 data
+h5_data.select("obj2",where = ['index >=10 and index <=15'])  getting conditional data from h5 file
+
+
+
+
